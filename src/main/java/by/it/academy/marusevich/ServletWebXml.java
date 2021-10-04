@@ -10,7 +10,9 @@ public class ServletWebXml extends HttpServlet {
     long visitCount = 0;
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        visitCount++;
+        synchronized (this) {
+            visitCount++;
+        }
 
         String message = "Hello Servlet! ";
         message += "Number of visits = " + visitCount + "; ";

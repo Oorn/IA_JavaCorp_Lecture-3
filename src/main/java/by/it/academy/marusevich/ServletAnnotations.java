@@ -13,7 +13,9 @@ public class ServletAnnotations extends HttpServlet {
     long getCount = 0;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        getCount++;
+        synchronized (this) {
+            getCount++;
+        }
 
         String message = "Hello Servlet! ";
         message += "Number of doGet = " + getCount + "; ";
@@ -25,7 +27,9 @@ public class ServletAnnotations extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        postCount++;
+        synchronized (this) {
+            postCount++;
+        }
 
         String message = "Hello Servlet! ";
         message += "Number of doPost = " + postCount + "; ";
