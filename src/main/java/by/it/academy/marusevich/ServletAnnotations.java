@@ -13,12 +13,14 @@ public class ServletAnnotations extends HttpServlet {
     long getCount = 0;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        long localGetCount;
         synchronized (this) {
             getCount++;
+            localGetCount = getCount;
         }
 
         String message = "Hello Servlet! ";
-        message += "Number of doGet = " + getCount + "; ";
+        message += "Number of doGet = " + localGetCount + "; ";
         message += "Thread name = " + Thread.currentThread().getName() + "; ";
 
         resp.setContentType("text/html");
@@ -27,12 +29,14 @@ public class ServletAnnotations extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        long localPostCount;
         synchronized (this) {
             postCount++;
+            localPostCount = postCount;
         }
 
         String message = "Hello Servlet! ";
-        message += "Number of doPost = " + postCount + "; ";
+        message += "Number of doPost = " + localPostCount + "; ";
         message += "Thread name = " + Thread.currentThread().getName() + "; ";
 
         resp.setContentType("text/html");
